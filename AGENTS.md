@@ -16,9 +16,9 @@
 
 - Product name is BracketFlow: a tournament management platform for Tabletop Wargames.
 - Primary users are admins, participants, and spectators. These are the only system roles.
-- Admin control is a core principle: admins must be able to manage setup, seeding, participants, scores, corrections, and tournament state.
-- The MVP lifecycle is: create tournament -> add/register participants -> seed participants -> start bracket -> report scores -> advance matches -> publish final results.
-- MVP formats are single elimination, double elimination, round robin, and Swiss per `03-prd-feature-backlog.md` and `05-acceptance-criteria.md`.
-- P2/second-release items include two-stage tournaments, proof/disputes, self-reporting, substitutions, forfeits, templates, and reopen/correction workflows.
+- Admin control is a core principle: admins must be able to manage setup, seeding, participants, scores, tournament state, and final results; broader corrections are later scope unless specified.
+- The MVP lifecycle is: create public tournament -> configure public page -> add/register participants -> handle withdrawals/removals -> seed participants -> preview bracket -> start tournament -> report scores -> advance matches -> publish final results.
+- MVP formats are single elimination, round robin, and Swiss per `03-prd-feature-backlog.md` and `05-acceptance-criteria.md`.
+- Later-scope items include private tournaments, invitations, check-in, custom fields, two-stage tournaments, proof/disputes, self-reporting, substitutions, forfeits, templates, and reopen/correction workflows.
 - Preserve the numbered acceptance criteria IDs `AC-1` through `AC-51`; reference them when clarifying or adding requirements.
 - Treat explicit `TBD` items as unresolved; do not present them as finalized requirements without updating the source doc.

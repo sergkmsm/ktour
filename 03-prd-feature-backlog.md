@@ -8,39 +8,41 @@ Working name: **BracketFlow**
 
 ### Product summary
 
-BracketFlow is a tournament management platform that helps admins create, run, and publish tournaments with flexible formats, registration, check-in, participant management, score reporting, and standings.
+BracketFlow is a tournament management platform that helps admins create, run, and publish public Tabletop Wargames tournaments with participant joining, admin participant management, score reporting, standings, and final results.
 
 ### MVP goal
 
 The MVP should support the full lifecycle of a basic tournament:
 
-Create tournament → add/register participants → seed participants → start bracket → report scores → advance matches → publish final results.
+Create public tournament → configure public page → add or register participants → handle withdrawals/removals → seed participants → preview bracket → start tournament → report scores → advance matches → publish final results.
 
 ### MVP feature backlog
 
-| Priority | Feature                     | Description                                                                                                     |
-|----------|-----------------------------|-----------------------------------------------------------------------------------------------------------------|
-| P0       | Tournament creation         | Admin can create a tournament with name, description, game/activity, start date, visibility, and rules summary. |
-| P0       | Tournament format selection | Admin can choose single elimination, double elimination, round robin, or Swiss.                                 |
-| P0       | Public tournament page      | System displays bracket, participants, standings, match list, announcements, and tournament status.             |
-| P0       | Private tournament option   | Admin can restrict tournament visibility and registration.                                                      |
-| P0       | Participant manual add      | Admin can add participants by display name.                                                                     |
-| P0       | Participant invitation      | Admin can invite participants using account identity or contact information.                                    |
-| P0       | Bulk participant add        | Admin can paste a participant list and create entries quickly.                                                  |
-| P0       | Participant editing         | Admin can edit display names and participant details before tournament start.                                   |
-| P0       | Participant removal         | Admin can remove a participant before start or mark a participant as dropped after start.                       |
-| P0       | Seeding management          | Admin can manually reorder seeds or shuffle seeds.                                                              |
-| P0       | Bracket preview             | Admin can preview the bracket before starting the tournament.                                                   |
-| P0       | Start tournament            | Admin can lock core setup and begin matches.                                                                    |
-| P0       | Score reporting             | Admin can enter match results and advance winners.                                                              |
-| P0       | Standings                   | System displays wins, losses, ties, points, ranking, and relevant tiebreakers.                                  |
-| P0       | End tournament              | Admin can mark tournament as complete and publish final placements.                                             |
+| Priority | Feature                     | Description                                                                                                                  |
+|----------|-----------------------------|------------------------------------------------------------------------------------------------------------------------------|
+| P0       | Tournament creation         | Admin can create a public tournament with name, description, game system/activity, start date, and rules summary.             |
+| P0       | Tournament format selection | Admin can choose single elimination, round robin, or Swiss.                                                                  |
+| P0       | Public tournament page      | System displays tournament details, participants, bracket or standings, match list, tournament status, and final results.     |
+| P0       | Participant joining         | Participant can join a public tournament while joining is open.                                                              |
+| P0       | Participant withdrawal      | Participant can withdraw from a public tournament before the tournament starts.                                               |
+| P0       | Participant manual add      | Admin can add participants by display name.                                                                                  |
+| P0       | Bulk participant add        | Admin can paste a participant list and create entries quickly.                                                               |
+| P0       | Participant editing         | Admin can edit display names and participant details before tournament start.                                                |
+| P0       | Participant removal         | Admin can remove a participant before start and see participant withdrawals before generating the bracket or schedule.        |
+| P0       | Seeding management          | Admin can manually reorder seeds or shuffle seeds.                                                                           |
+| P0       | Bracket preview             | Admin can preview the bracket or scheduled pairings before starting the tournament.                                          |
+| P0       | Start tournament            | Admin can lock core setup and begin matches.                                                                                 |
+| P0       | Admin score reporting       | Admin can enter match results and advance winners or update standings.                                                       |
+| P0       | Standings                   | System displays wins, losses, ties, points, ranking, and relevant tiebreakers for formats that use standings.                |
+| P0       | End tournament              | Admin can mark tournament as complete and publish final placements.                                                          |
+| P0       | Spectator viewing           | Unregistered spectators can view public tournament pages, brackets, standings, participants, match results, and final results. |
 
 ### P1 feature backlog
 
 | Priority | Feature                    | Description                                                                                                |
 |----------|----------------------------|------------------------------------------------------------------------------------------------------------|
-| P1       | Registration page          | Admin can open a sign-up page where participants register themselves.                                      |
+| P1       | Private tournament option  | Admin can restrict tournament visibility and registration after MVP public tournament flows are stable.     |
+| P1       | Participant invitation     | Admin can invite participants using account identity or contact information.                               |
 | P1       | Check-in                   | Admin can require participants to confirm attendance before the tournament starts.                         |
 | P1       | Custom registration fields | Admin can collect required details such as gamer tag, region, waiver acknowledgment, or preferred contact. |
 | P1       | Substitution               | Admin can replace a participant before or during tournament operations.                                    |
@@ -73,34 +75,25 @@ Create tournament → add/register participants → seed participants → start 
 
 #### Tournament formats
 
-The system should support the following tournament structures:
+MVP should support the following tournament structures:
 
 1.  **Single elimination** — one loss eliminates the participant.
-2.  **Double elimination** — participant is eliminated after two losses.
-3.  **Round robin** — each participant plays every other participant in a group or tournament.
-4.  **Swiss** — participants play a set number of rounds and are paired with competitors who have similar records.
-5.  **Free-for-all** — multiple competitors compete in a match and top performers advance.
-6.  **Leaderboard** — participants accumulate scores and are ranked by total performance.
-7.  **Two-stage** — participants compete in groups first, then qualifying participants advance to a final stage.
-8.  **Racing formats** — single race, time trial, and grand prix.
+2.  **Round robin** — each participant plays every other participant in the tournament.
+3.  **Swiss** — participants play a set number of rounds and are paired with competitors who have similar records.
+
+Later scope may add free-for-all, leaderboard, two-stage, and racing formats after the MVP formats are fully specified.
 
 #### Registration rules
 
-The system should allow admins to choose:
+MVP should allow admins to choose:
 
-- Registration open or closed.
-- Public or private registration.
-- Registration deadline.
-- Maximum participants.
-- Waitlist behavior.
-- Required participant fields.
-- Check-in required or optional.
-- Region restrictions if applicable.
-- Whether admin approval is required.
+- Joining open or closed.
+
+Private registration, registration deadlines, participant limits, waitlists, custom participant fields, check-in, region restrictions, and admin approval rules are later-scope items that need separate clarification.
 
 #### Match lifecycle
 
-Each match should have clear states:
+Each match should have clear states. The exact transitions, guard rules, and boundaries between similar states are unresolved and tracked in `06-open-questions-and-problems.md`.
 
 1.  Not ready.
 2.  Waiting for participants.
@@ -116,7 +109,7 @@ Each match should have clear states:
 
 #### Tournament lifecycle
 
-Each tournament should have clear states:
+Each tournament should have clear states. The exact transitions, guard rules, and release-specific state set are unresolved and tracked in `06-open-questions-and-problems.md`.
 
 1.  Draft.
 2.  Registration open.
