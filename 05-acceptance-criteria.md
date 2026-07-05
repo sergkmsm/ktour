@@ -181,6 +181,20 @@ Given printable brackets are supported and a bracket exists, when the admin sele
 AC-51: [Later Scope] Shareable result  
 Given shareable result links or images are supported and a match or tournament result exists, when an admin, participant, or spectator shares it, then the shared view reflects the current result.
 
+### N. Controlled admin operations
+
+AC-52: [Later Scope] Controlled ongoing correction  
+Given controlled admin overrides are supported and an ongoing tournament has an incorrect score, match state, participant status, or advancement, when the admin submits a correction, then the system explains the affected bracket, standings, or placement impact before applying the change.
+
+AC-53: [Later Scope] Confirm high-impact correction  
+Given an admin correction affects completed matches, downstream pairings, standings, or final placements, when the admin attempts to apply the correction, then the system requires explicit confirmation before saving it.
+
+AC-54: [Later Scope] Ongoing correction visibility  
+Given a published tournament detail changes because of an admin correction, when admins, participants, or spectators view affected tournament information, then the current saved information is shown with enough correction context to avoid silently rewriting the public state.
+
+AC-55: [Later Scope] Guardrail for unrestricted editing  
+Given controlled admin overrides are supported, when an admin attempts a high-risk change such as changing tournament format after start, removing completed bracket history, or altering completed final results, then the system blocks the change or requires a defined correction/reopen workflow.
+
 # MVP Recommendation
 
 The first release should include:
@@ -205,5 +219,6 @@ Later releases should add:
 4.  Match proof attachments, disputes, and result review.
 5.  Two-stage tournaments.
 6.  Substitutions, forfeits, and after-start participant changes.
-7.  Tournament templates and correction/reopen workflows.
-8.  Printable brackets and shareable bracket or result links/images.
+7.  Controlled admin overrides for ongoing tournament issues.
+8.  Tournament templates and correction/reopen workflows.
+9.  Printable brackets and shareable bracket or result links/images.

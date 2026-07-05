@@ -50,6 +50,7 @@ Create public tournament → configure public page → add or register participa
 | P1       | Match attachments          | Admin or participant can attach result proof when allowed.                                                 |
 | P1       | Participant self-reporting | Admin can allow participants to submit scores.                                                             |
 | P1       | Score dispute status       | Match can be flagged for review when submitted scores conflict or need confirmation.                       |
+| P1       | Controlled admin overrides | Admin can correct operational issues during an ongoing tournament, such as score mistakes, match state errors, drops, or manual advancement, with confirmation and visible correction context. |
 | P1       | Announcements              | Admin can post tournament-wide messages.                                                                   |
 
 ### P2 feature backlog
@@ -106,6 +107,17 @@ Each match should have clear states. The exact transitions, guard rules, and bou
 9.  Completed.
 10. Forfeited.
 11. Disputed.
+
+#### Admin operations and overrides
+
+BracketFlow should give admins practical control to keep a real tournament moving when the system state no longer matches what happened at the event. These controls should be powerful enough to correct common operational problems, but not so unrestricted that they silently rewrite tournament history.
+
+Controlled admin override behavior should include:
+
+1.  Clear confirmation before changing completed matches, bracket progression, standings, or final placements.
+2.  Visible correction context for affected admins, participants, and spectators when published information changes.
+3.  Guardrails for high-impact changes, such as changing format, removing large parts of bracket history, or altering completed final results.
+4.  A preference for explicit admin decisions over hidden automatic recovery when a correction has downstream effects.
 
 #### Tournament lifecycle
 

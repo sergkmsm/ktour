@@ -169,6 +169,15 @@ As an admin, I want to reopen a completed tournament so that final results can b
 User story 11.6  
 As a participant, I want corrections to be visible so that I can trust the final standings.
 
+User story 11.7  
+As an admin, I want controlled override tools for drops, match state mistakes, and manual advancement so that real-world tournament problems can be fixed without unrestricted editing.
+
+User story 11.8  
+As a spectator, I want corrected public information to show that an update happened so that tournament progress remains trustworthy.
+
+User story 11.9  
+As an admin, I want important corrections to require confirmation so that I do not accidentally change brackets, standings, or final placements.
+
 ### Key use cases
 
 #### Use case A: Create a public MVP tournament
@@ -220,6 +229,22 @@ Main flow:
 5.  Bracket or standings update.
 
 Successful outcome: Match is completed and the next match or ranking is updated.
+
+#### Later-scope use case C2: Correct an ongoing tournament issue
+
+Actor: Admin  
+Goal: Fix a tournament state problem without restarting the event.
+
+Main flow:
+
+1.  Admin identifies a score, match state, participant status, or advancement problem.
+2.  Admin opens the affected match or tournament control area.
+3.  System explains the downstream effect on bracket progression, standings, or final placements.
+4.  Admin confirms the correction.
+5.  System applies the correction and updates affected public tournament information.
+6.  System shows correction context where needed so affected viewers can understand that information changed.
+
+Successful outcome: The tournament reflects the real-world event state and can continue without hidden or uncontrolled changes.
 
 #### Use case D: View a public tournament as a spectator
 

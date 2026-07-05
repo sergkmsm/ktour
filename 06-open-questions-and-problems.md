@@ -8,7 +8,7 @@ This file tracks unresolved product questions and requirement gaps that should n
 
 1.  Private tournaments and private registration are later scope. Define whether private events are hidden by URL, invitation, account access, or another access model.
 2.  Two-stage tournaments are later scope. Define how group stages, final stages, advancement, and standings interact before adding them to implementation scope.
-3.  Check-in, participant self-reporting, proof, disputes, substitutions, forfeits, announcements, messaging, print/share, reopen, and correction workflows are later scope unless explicitly moved.
+3.  Check-in, participant self-reporting, proof, disputes, substitutions, forfeits, announcements, messaging, print/share, reopen, controlled admin overrides, and correction workflows are later scope unless explicitly moved.
 
 ### Tournament and match states
 
@@ -51,6 +51,7 @@ This file tracks unresolved product questions and requirement gaps that should n
 3.  Define whether changing a completed result recalculates downstream matches, standings, and final placements automatically or requires manual confirmation.
 4.  Define audit/history visibility for corrections before adding correction workflows.
 5.  Define after-start participant changes, including drops, substitutions, late additions, and byes.
+6.  Define the guardrails for controlled admin overrides so admins can fix real-world issues without unrestricted editing.
 
 ### Notifications and communication
 

@@ -8,9 +8,15 @@ Create a tournament management platform that allows admins to create, manage, ru
 
 The system should make tournament hosting simple for small community admins while still supporting structured, multi-stage competitive events with full control of all aspects of the tournament.
 
+### Core problem
+
+Existing tournament systems often automate the bracket but do not give admins enough practical control when real-world tournament problems happen. BracketFlow should help admins recover from mistakes, unexpected participant changes, incorrect scores, and operational issues without forcing them to abandon the tournament or move the event into spreadsheets.
+
 ### Product goal
 
-The system should help admins to run and administrate tournaments with ability to control and adjust any aspect, games, participants of the ongoing tournament.
+The system should help admins run and administrate tournaments with the ability to control and adjust key tournament aspects, games, and participants during tournament operations.
+
+Admin authority should be a deliberate product strength. BracketFlow should prioritize controlled admin decisions over rigid automated workflows, while still making important changes visible and requiring confirmation when changes affect brackets, standings, or final results.
 
 ### Primary outcomes
 
@@ -87,7 +93,7 @@ The system includes tournament-related features only.
 
 #### Explicitly unresolved
 
-1.  Correction of previous games, results, and participants in games. (TBD)
+1.  Detailed rules for correcting previous games, results, and participants in games. (TBD)
 
 2.  Adding new participants after tournament start. (TBD)
 
@@ -117,8 +123,9 @@ The product should be considered successful if:
 
 ### Product principles
 
-1.  Admin control: Admins must be able to manage tournament setup, participants, seeding, scores, match progress, and final results.
+1.  Admin control: Admins must be able to manage tournament setup, participants, seeding, scores, match progress, and final results, with controlled override and recovery tools for real-world tournament issues.
 2.  **Participant clarity:** Participants must always know whether they are joined, withdrawn, active, eliminated, waiting, or finished.
 3.  **Result transparency:** Brackets, scores, standings, and tiebreakers should be visible and understandable.
 4.  **Flexible formats:** Different competitions require different tournament formats.
 5.  No hidden assumptions: Rules, advancement logic, scoring, and tiebreakers should be shown clearly to admins before the tournament starts.
+6.  Controlled overrides: Admins should be able to correct and adjust an ongoing tournament when needed, but major changes should not silently rewrite history or hide corrections from affected viewers.

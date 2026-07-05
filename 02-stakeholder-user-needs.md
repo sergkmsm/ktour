@@ -44,13 +44,16 @@
 | Admin       | I need private tournament access controls when private tournaments are added after MVP.                         |
 | Admin       | I need participant invitations when invite-only tournaments are added after MVP.                                |
 | Admin       | I need check-in, custom registration fields, substitutions, forfeits, disputes, proof, and correction workflows after the MVP scope is stable. |
+| Admin       | I need controlled ways to override, correct, adjust, and recover tournament state when real-world issues happen. |
 | Participant | I may need check-in, score self-reporting, proof submission, and dispute participation in a later release.      |
 
 ### Key pain points to solve
 
-1.  Admins often manage brackets, participant lists, scores, and communication in separate tools.
-2.  Participants get confused when brackets change before the tournament starts.
-3.  Participant withdrawals and admin removals need to be visible before bracket generation.
-4.  Score reporting, bracket advancement, and standings need one source of truth.
-5.  Participants and spectators need a single public page for brackets, standings, match results, and final results.
-6.  Later-scope features such as private tournaments, two-stage tournaments, disputes, and corrections need separate clarification before implementation.
+1.  Existing tournament systems often do not give admins enough control to fix real-world event problems without leaving the system.
+2.  Admins often manage brackets, participant lists, scores, and communication in separate tools.
+3.  Real tournaments need manual fixes because players drop, scores are entered incorrectly, pairings need correction, tables change, and timing issues happen.
+4.  Participants get confused when brackets change before the tournament starts.
+5.  Participant withdrawals and admin removals need to be visible before bracket generation.
+6.  Score reporting, bracket advancement, and standings need one source of truth.
+7.  Participants and spectators need a single public page for brackets, standings, match results, and final results.
+8.  Later-scope features such as private tournaments, two-stage tournaments, disputes, and corrections need separate clarification before implementation.
