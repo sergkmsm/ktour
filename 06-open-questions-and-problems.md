@@ -8,15 +8,28 @@ This file tracks unresolved product questions and requirement gaps that should n
 
 1.  Private tournaments and private registration are later scope. Define whether private events are hidden by URL, invitation, account access, or another access model.
 2.  Two-stage tournaments are later scope. Define how group stages, final stages, advancement, and standings interact before adding them to implementation scope.
-3.  Check-in, participant self-reporting, proof, disputes, substitutions, forfeits, announcements, messaging, print/share, reopen, controlled admin overrides, and correction workflows are later scope unless explicitly moved.
+3.  Check-in, proof, disputes, substitutions, forfeits, announcements, messaging, print/share, and broader admin overrides are later scope unless explicitly moved. Direct participant score reporting, controlled late participant placement, and tournament cancellation are MVP. Tournament reopening is not supported.
 
-### Tournament and match states
+### Resolved MVP lifecycle
 
-1.  Define the exact MVP tournament states and allowed transitions.
-2.  Define the exact MVP match states and allowed transitions.
-3.  Clarify boundaries between similar match states such as ready, ready for score reporting, in progress, and awaiting score.
-4.  Define guard rules for start, score reporting, match completion, standings update, tournament completion, cancellation, and any future reopen flow.
-5.  Decide whether paused, reopened, under review, disputed, forfeited, and cancelled states exist in MVP or only in later-scope workflows.
+Tournament states are `Draft`, `Registration Open`, `Registration Closed`, `In Progress`, `Completed`, and `Cancelled`.
+
+1.  A draft is private and may be published as registration open or registration closed, or cancelled.
+2.  Registration open and registration closed are public states; the admin may move between them before start.
+3.  Starting requires registration closed, valid required and format setup, valid seeding, and enough eligible participants. It creates the final bracket or schedule, changes the tournament to in progress, and starts round one.
+4.  In progress is public. Participants may join with pending-placement status. An admin may place them only through confirmed controlled reflow that changes unfinished competition and preserves completed history.
+5.  Completion requires every required match and round to be complete and standings and placements to calculate successfully. Completed is immutable and has no outgoing transition.
+6.  An admin may cancel any nonterminal tournament after confirmation. Cancelled is terminal and read-only. A cancelled draft remains private; an already published tournament remains public.
+7.  `Paused` and `Reopened` are not MVP tournament states.
+
+MVP match states are `Not Ready`, `Active`, and `Completed`.
+
+1.  A match is not ready until the admin starts its round.
+2.  Starting a round makes its matches active. Tournament start starts round one; the admin starts every later round after its prerequisites are complete.
+3.  An assigned participant or admin may submit a valid score for an active match. Saving it atomically completes the match, advances bracket entrants when applicable, and updates standings.
+4.  Completed matches cannot be changed. `Ready`, `Ready for Score Reporting`, `In Progress`, `Awaiting Score`, `Score Submitted`, `Under Review`, `Disputed`, and `Forfeited` are not MVP match states.
+
+Before start, affected setup changes automatically regenerate the current admin-only preview without retaining preview history. At start, format, structure, scoring, standings points, tiebreakers, seeds, and bracket or schedule rules lock. Description, rules summary, and scheduled date/time remain editable during in-progress play.
 
 ### Acceptance criteria precision
 
@@ -25,6 +38,14 @@ This file tracks unresolved product questions and requirement gaps that should n
 3.  Define valid score fields for AC-27 and invalid score behavior for AC-28.
 4.  Define the MVP tiebreaker options and order for AC-34 and AC-35.
 5.  Define what viewers should see when match information changes in AC-43, including whether updates are real-time or refresh-based.
+6.  Define when a selected winner must agree with the entered score, and how draws, tied scores, incomplete scores, and scoreless results are handled for each format.
+
+### MVP format operation rules
+
+1.  Define the minimum and supported participant counts, bracket size, bye allocation, seed-to-slot mapping, and tie resolution for single elimination.
+2.  Define round robin scheduling for odd participant counts, match generation timing, points allocation, and completion rules.
+3.  Define Swiss round count, first-round pairing, subsequent pairing priority, rematch avoidance, bye selection, tie handling, and when the next round may be generated.
+4.  Define how manual and shuffled seeds affect each format, including whether seeds apply only to initial pairings or have any later-round effect.
 
 ### Tabletop Wargames domain requirements
 
@@ -39,19 +60,29 @@ This file tracks unresolved product questions and requirement gaps that should n
 ### Participant and registration behavior
 
 1.  Define whether MVP participant joining requires only display name or additional required fields.
-2.  Define whether participants can withdraw only before start or during specific later-scope states.
-3.  Define whether admin approval, rejection, waitlists, registration limits, and registration deadlines are MVP or later scope beyond the basic MVP joining controls.
-4.  Define whether participants need accounts in MVP or can join with lightweight public information.
-5.  Define how duplicate participant names are detected or handled.
+2.  Define whether admin approval, rejection, waitlists, registration limits, and registration deadlines are MVP or later scope beyond the basic MVP joining controls.
+3.  Define whether participants need accounts in MVP or can join with lightweight public information.
+4.  Define how duplicate participant names are detected or handled.
+5.  Define the lifecycle and visibility differences between an admin-removed participant and a participant who withdrew, including whether either can rejoin and how either appears in previews and public lists.
+6.  Define how an admin-added or bulk-added offline participant is associated with a later participant identity, and who may withdraw that entry.
+7.  Define the bulk participant input format, validation and normalization rules, duplicate handling, error feedback, and whether a partly invalid import is applied or rejected.
+
+### Roles and authorization behavior
+
+1.  Define how the system determines which identity owns a tournament and may perform admin actions; authentication implementation can remain out of scope, but authorization outcomes cannot.
+2.  Define whether a tournament can have multiple admins, how ownership is transferred, and whether an admin may also join and compete in the tournament.
 
 ### Admin controls and corrections
 
-1.  Define the exact scope of admin correction powers before tournament start.
-2.  Define whether admins can edit scores after a match is completed during MVP.
-3.  Define whether changing a completed result recalculates downstream matches, standings, and final placements automatically or requires manual confirmation.
-4.  Define audit/history visibility for corrections before adding correction workflows.
-5.  Define after-start participant changes, including drops, substitutions, late additions, and byes.
-6.  Define the guardrails for controlled admin overrides so admins can fix real-world issues without unrestricted editing.
+1.  Define the format-specific placement and reflow rules for an after-start entrant, including available slots, byes, and required pairing regeneration.
+2.  Define whether controlled late placement needs a retained audit/history record in addition to its required impact preview and confirmation.
+3.  Define after-start participant changes other than late additions, including drops, substitutions, removals, and byes.
+4.  Define the guardrails for broader future admin overrides, which must not alter MVP completed-match or completed-tournament history.
+
+### Final results and placements
+
+1.  Define which final placements must be published for each MVP format, including whether single-elimination semifinalists share third place when placement matches are later scope.
+2.  Define how round robin and Swiss final ranks are calculated when participants remain tied after all configured tiebreakers.
 
 ### Notifications and communication
 
@@ -62,5 +93,5 @@ This file tracks unresolved product questions and requirement gaps that should n
 ### Spectator visibility
 
 1.  Define whether spectators can discover public tournaments through search/listing or only through direct links.
-2.  Define spectator visibility for not-started, in-progress, completed, cancelled, and later-scope private tournaments.
-3.  Define whether spectators can follow a specific match, table, participant, or faction in later releases.
+2.  Define whether spectators can follow a specific match, table, participant, or faction in later releases.
+3.  Define which participant fields and statuses are public, including withdrawn, removed, pending, and preview-only entries.

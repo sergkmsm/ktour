@@ -14,9 +14,9 @@ Existing tournament systems often automate the bracket but do not give admins en
 
 ### Product goal
 
-The system should help admins run and administrate tournaments with the ability to control and adjust key tournament aspects, games, and participants during tournament operations.
+The system should help admins run and administrate tournaments with practical control over setup, rounds, participants, games, and results during tournament operations.
 
-Admin authority should be a deliberate product strength. BracketFlow should prioritize controlled admin decisions over rigid automated workflows, while still making important changes visible and requiring confirmation when changes affect brackets, standings, or final results.
+Admin authority should be a deliberate product strength. BracketFlow should prioritize controlled admin decisions over rigid automated workflows, while preserving completed history and requiring confirmation when an in-progress participant placement changes unfinished pairings or standings.
 
 ### Primary outcomes
 
@@ -45,7 +45,7 @@ The system includes tournament-related features only.
 
 3.  Public tournament pages.
 
-4.  Participant joining and withdrawal.
+4.  Participant joining, including pending placement for joins submitted after tournament start, and participant withdrawal before tournament start.
 
 5.  Manual participant entry by admin.
 
@@ -53,15 +53,21 @@ The system includes tournament-related features only.
 
 7.  Participant editing and removal by admin before tournament start.
 
-8.  Bracket generation and preview.
+8.  Controlled placement of participants added after tournament start, affecting only unfinished competition.
 
-9.  Manual seeding and shuffled seeding.
+9.  Bracket or schedule generation and admin-only preview.
 
-10. Score reporting by admins.
+10. Manual seeding and shuffled seeding.
 
-11. Standings, rankings, and tiebreakers.
+11. Admin-started rounds and clear match states.
 
-12. Tournament completion and final results publishing.
+12. Score reporting by assigned participants or admins.
+
+13. Standings, rankings, and tiebreakers.
+
+14. Tournament cancellation.
+
+15. Tournament completion and final results publishing.
 
 #### Later scope
 
@@ -73,31 +79,23 @@ The system includes tournament-related features only.
 
 4.  Check-in before tournament start.
 
-5.  Participant score reporting.
+5.  Match proof, score disputes, and result review workflows.
 
-6.  Match proof, score disputes, and result review workflows.
+6.  Substitution, forfeit handling, and after-start participant removals or other changes beyond controlled late placement.
 
-7.  Substitution, forfeit handling, and after-start participant changes.
+7.  Two-stage tournaments, such as group stage to finals.
 
-8.  Two-stage tournaments, such as group stage to finals.
+8.  Group assignment and advancement rules for two-stage tournaments.
 
-9.  Group assignment and advancement rules for two-stage tournaments.
+9.  Leaderboard and other additional tournament formats.
 
-10. Leaderboard and other additional tournament formats.
+10. Ranking-based seeding.
 
-11. Ranking-based seeding.
-
-12. Tournament completion reopening and broader correction workflows.
-
-13. Tournament templates for repeated events.
+11. Tournament templates for repeated events.
 
 #### Explicitly unresolved
 
-1.  Detailed rules for correcting previous games, results, and participants in games. (TBD)
-
-2.  Adding new participants after tournament start. (TBD)
-
-3.  Adding new games after tournament start. (TBD)
+1.  Adding new games after tournament start. (TBD)
 
 ### Out of scope
 
@@ -116,8 +114,8 @@ The following are intentionally excluded from this document:
 The product should be considered successful if:
 
 - An admin can create and publish a basic public tournament without external help.
-- Participants can join, withdraw, find published tournament information, and understand whether they are currently joined or withdrawn.
-- Admins can manage participant entries, seeding, score reporting, match progress, and final standings.
+- Participants can join, request placement after start, submit an active-match score, find published tournament information, and understand their current status.
+- Admins can manage participant entries, controlled in-progress placement, seeding, rounds, score reporting, match progress, and final standings.
 - Spectators can view public tournament pages, brackets, standings, match results, and final results without registering.
 - The MVP avoids unsupported operational workflows and clearly identifies later-scope questions before implementation.
 
@@ -128,4 +126,4 @@ The product should be considered successful if:
 3.  **Result transparency:** Brackets, scores, standings, and tiebreakers should be visible and understandable.
 4.  **Flexible formats:** Different competitions require different tournament formats.
 5.  No hidden assumptions: Rules, advancement logic, scoring, and tiebreakers should be shown clearly to admins before the tournament starts.
-6.  Controlled overrides: Admins should be able to correct and adjust an ongoing tournament when needed, but major changes should not silently rewrite history or hide corrections from affected viewers.
+6.  Controlled reflow: Admins may place an entrant during an ongoing tournament only after reviewing and confirming the impact on unfinished competition. Completed matches, results, and completed tournaments are immutable.

@@ -4,8 +4,9 @@
 
 ### A. Tournament creation
 
-AC-1: [MVP] Create public tournament  
-Given I am an admin, when I create a public tournament with required basic information, then the tournament is saved as a draft.
+AC-1: [MVP] Create tournament draft
+
+Given I am an admin, when I create a tournament with required basic information, then the tournament is saved as a draft.
 
 AC-2: [MVP] Required fields  
 Given I am creating a tournament, when required fields are missing, then I cannot publish or start the tournament until those fields are completed.
@@ -13,16 +14,17 @@ Given I am creating a tournament, when required fields are missing, then I canno
 AC-3: [MVP] Format selection  
 Given I am creating a tournament, when I select single elimination, round robin, or Swiss, then the system shows the setup options required for that format before start.
 
-AC-4: [Later Scope] Private visibility  
-Given private tournaments are supported, when I choose private visibility, then the tournament is not publicly discoverable and access is controlled by later-scope private tournament rules.
+AC-4: [MVP] Publish public tournament
+
+Given a valid draft, when the admin publishes it as registration open or registration closed, then its public page becomes visible; the draft is visible only to its admin before publication.
 
 ### B. Joining
 
 AC-5: [MVP] Open joining  
-Given joining is open for a public tournament, when a participant submits the required MVP join information, then they are added to the participant list with joined status.
+Given joining is open for a public tournament, when a participant submits the required MVP join information, then they are added with joined status during registration open or pending-placement status during in-progress play.
 
 AC-6: [MVP] Joining closed  
-Given joining is closed, when a participant visits the tournament page, then they cannot join and must see the joining status.
+Given a tournament is in registration closed, when a participant visits its public page, then they cannot join and must see the joining status.
 
 AC-7: [Later Scope] Custom fields  
 Given the admin requires custom registration fields, when a participant registers, then the participant must complete those fields before registration is accepted.
@@ -41,8 +43,9 @@ Given I am an admin, when I paste multiple participant names, then the system cr
 AC-11: [MVP] Edit participant before start  
 Given the tournament has not started, when the admin edits a participant display name, then the updated name appears in the bracket preview and participant list.
 
-AC-12: [Later Scope] Substitute participant  
-Given substitution is supported, when the admin replaces a participant, then the new participant takes the correct bracket or group position according to defined substitution rules.
+AC-12: [MVP] Controlled after-start placement
+
+Given a tournament is in progress and an entrant is pending placement, when the admin selects a placement, then the system shows the affected unfinished pairings and standings and requires confirmation before applying the change; completed match history is unchanged.
 
 AC-13: [MVP] Remove participant before start  
 Given the tournament has not started, when the admin removes a participant, then the participant is excluded from the bracket preview or scheduled pairings.
@@ -64,46 +67,50 @@ Given check-in is required, when the admin starts the tournament, then the admin
 ### E. Seeding and bracket preview
 
 AC-18: [MVP] Manual seeding  
-Given participants exist, when the admin changes seed order, then the bracket preview or scheduled pairings update.
+Given participants exist before start, when the admin changes seed order, then the admin-only bracket preview or scheduled pairings regenerate automatically.
 
 AC-19: [MVP] Shuffle seeding  
-Given participants exist, when the admin shuffles seeds, then participant order changes and the admin can review the updated bracket preview or scheduled pairings before starting.
+Given participants exist before start, when the admin shuffles seeds, then participant order changes and the system automatically regenerates the admin-only preview before starting.
 
 AC-20: [MVP] Final bracket lock  
-Given the tournament has started, when the bracket or scheduled pairings are generated, then participants can distinguish final matches from earlier previews.
+Given the tournament starts, when the final bracket or scheduled pairings are generated, then viewers can distinguish them from earlier previews; format, structure, scoring, standings, tiebreakers, seeds, and bracket or schedule rules are locked.
 
 ### F. Tournament start
 
 AC-21: [MVP] Start tournament  
-Given required setup is complete, when the admin starts the tournament, then active first-round matches or first-round pairings are created.
+Given registration is closed and required setup is complete, when the admin starts the tournament, then the final bracket or schedule is created, the tournament enters in progress, and first-round matches become active.
 
 AC-22: [MVP] Prevent invalid start  
-Given required setup is incomplete, when the admin attempts to start the tournament, then the system explains what must be fixed.
+Given registration is open, required setup is incomplete, seeding is invalid, or the selected format lacks enough active participants, when the admin attempts to start the tournament, then the system prevents the start and explains what must be fixed.
 
 ### G. Match operations
 
 AC-23: [MVP] Match page  
-Given a match exists, when an admin, participant, or spectator views it, then they can see participants, score status, bracket or standings context, and current state.
+Given a match exists, when an admin, participant, or spectator views it, then they can see participants, score status, bracket or standings context, and its not-ready, active, or completed state.
 
 AC-24: [MVP] Match state visibility  
-Given match states change during the MVP flow, when admins, participants, or spectators view the tournament, then they can see whether each match is pending, active, or completed.
+Given match states change during the MVP flow, when admins, participants, or spectators view the tournament, then they can see whether each match is not ready, active, or completed.
 
-AC-25: [MVP] Match bracket position  
-Given a match exists, when admins, participants, or spectators view the bracket or match page, then they can understand where the match sits in tournament progression.
+AC-25: [MVP] Round activation
 
-AC-26: [MVP] Upcoming match visibility  
-Given a participant has a future match generated by the bracket or schedule, when they view the tournament, then they can see the opponent or pending source of that match.
+Given a future round's prerequisites are complete, when an admin starts that round, then its not-ready matches become active and only assigned participants or admins can report their results.
+
+AC-26: [MVP] Match context and upcoming visibility
+
+Given a match exists or a participant has a future match generated by the bracket or schedule, when they view the tournament, then they can understand its progression position and see its opponent or pending source.
 
 ### H. Score reporting
 
-AC-27: [MVP] Admin score reporting  
-Given a match is ready for score reporting, when an admin enters a result that fits the selected format's scoring fields, then the match is completed and the winner advances or standings update.
+AC-27: [MVP] Direct score reporting
+
+Given a match is active, when an assigned participant or admin enters a result that fits the selected format's scoring fields, then the system saves it, completes the match, advances the winner when applicable, and updates standings.
 
 AC-28: [MVP] Invalid score  
-Given a score does not fit the selected format's scoring fields, when an admin submits it, then the score is rejected with a clear explanation.
+Given a score does not fit the selected format's scoring fields, when an assigned participant or admin submits it, then the score is rejected with a clear explanation and the match remains active.
 
-AC-29: [Later Scope] Participant self-reporting  
-Given self-reporting is supported and enabled, when a participant submits a score, then the match is updated according to defined confirmation or review rules.
+AC-29: [MVP] Participant self-reporting
+
+Given an assigned participant submits a valid result for an active match, when it is saved, then it is final immediately without a confirmation or review state.
 
 AC-30: [Later Scope] Match proof  
 Given proof is supported and required, when a score is submitted without proof, then the score cannot be finalized.
@@ -117,7 +124,7 @@ Given forfeits are supported, when the admin marks a forfeit, then the opponent 
 ### I. Standings and tiebreakers
 
 AC-33: [MVP] Standings update  
-Given a match result is submitted, when standings are displayed, then wins, losses, ties, points, and rank reflect the latest saved result.
+Given a valid match result is saved, when standings are displayed, then wins, losses, ties, points, and rank reflect that result in the same completed-match operation.
 
 AC-34: [MVP] Tiebreakers  
 Given participants are tied and the admin has selected an ordered tiebreaker list before start, when standings are calculated, then those tiebreakers are applied in order.
@@ -151,7 +158,7 @@ AC-42: [Later Scope] Participant messages
 Given messaging is supported and enabled, when admins send a tournament-related message, then selected participants receive it or can view it.
 
 AC-43: [MVP] Public match updates  
-Given an admin changes a match score or match state, when admins, participants, or spectators view the public tournament page, then the current saved match information is shown.
+Given an assigned participant or admin saves a result for an active match, when admins, participants, or spectators view the public tournament page, then the current saved match information is shown.
 
 ### L. Completion and correction
 
@@ -161,19 +168,23 @@ Given all required matches are complete, when the admin ends the tournament, the
 AC-45: [MVP] Prevent early completion  
 Given required matches are incomplete, when the admin tries to end the tournament, then the system warns the admin and requires completion before final results are published.
 
-AC-46: [Later Scope] Edit result  
-Given result correction is supported and a score was entered incorrectly, when the admin edits the result, then bracket progression or standings update according to defined correction rules.
+AC-46: [MVP] Prevent completed match edits
 
-AC-47: [Later Scope] Reopen tournament  
-Given tournament reopening is supported and a tournament is completed, when the admin reopens it, then results can be corrected and republished.
+Given a match is completed, when an admin or participant attempts to change its result or state, then the system blocks the change.
 
-AC-48: [Later Scope] Correction visibility  
-Given completed result correction is supported and a completed result is changed, when admins, participants, or spectators view the tournament, then the updated result and correction status are visible.
+AC-47: [MVP] Completed tournament immutability
+
+Given a tournament is completed, when any user attempts to change its participants, setup, seeds, matches, scores, standings, or placements, then the system blocks the change.
+
+AC-48: [MVP] Cancel tournament
+
+Given a tournament is not completed or cancelled, when an admin confirms cancellation, then it enters cancelled, all tournament actions are blocked, and existing records remain read-only; a previously published tournament remains public while a cancelled draft remains private.
 
 ### M. Sharing and viewing
 
-AC-49: [MVP] Public bracket viewing  
-Given a tournament is public, when a spectator opens the tournament page, then they can view tournament details, participants, bracket or standings, match results, tournament status, and final results.
+AC-49: [MVP] Public tournament viewing
+
+Given a tournament is published, when a spectator opens the tournament page in registration open, registration closed, in progress, completed, or cancelled status, then they can view tournament details, participants, bracket or standings, match results, and tournament status; final results are visible when completed.
 
 AC-50: [Later Scope] Printable bracket  
 Given printable brackets are supported and a bracket exists, when the admin selects print view, then a printer-friendly version is available.
@@ -181,44 +192,30 @@ Given printable brackets are supported and a bracket exists, when the admin sele
 AC-51: [Later Scope] Shareable result  
 Given shareable result links or images are supported and a match or tournament result exists, when an admin, participant, or spectator shares it, then the shared view reflects the current result.
 
-### N. Controlled admin operations
-
-AC-52: [Later Scope] Controlled ongoing correction  
-Given controlled admin overrides are supported and an ongoing tournament has an incorrect score, match state, participant status, or advancement, when the admin submits a correction, then the system explains the affected bracket, standings, or placement impact before applying the change.
-
-AC-53: [Later Scope] Confirm high-impact correction  
-Given an admin correction affects completed matches, downstream pairings, standings, or final placements, when the admin attempts to apply the correction, then the system requires explicit confirmation before saving it.
-
-AC-54: [Later Scope] Ongoing correction visibility  
-Given a published tournament detail changes because of an admin correction, when admins, participants, or spectators view affected tournament information, then the current saved information is shown with enough correction context to avoid silently rewriting the public state.
-
-AC-55: [Later Scope] Guardrail for unrestricted editing  
-Given controlled admin overrides are supported, when an admin attempts a high-risk change such as changing tournament format after start, removing completed bracket history, or altering completed final results, then the system blocks the change or requires a defined correction/reopen workflow.
-
 # MVP Recommendation
 
 The first release should include:
 
-1.  Public tournament creation and public tournament pages.
+1.  Private draft creation, explicit publication, and public tournament pages.
 2.  Single elimination, round robin, and Swiss.
-3.  Participant joining and withdrawal before start.
-4.  Manual and bulk participant entry by admins.
+3.  Participant joining, pre-start withdrawal, and pending placement for in-progress joins.
+4.  Manual and bulk participant entry by admins, including controlled late placement that preserves completed history.
 5.  Admin participant editing and removal before start.
-6.  Manual and shuffled seeding.
-7.  Bracket or schedule preview and start tournament.
-8.  Admin score reporting.
-9.  Standings and tiebreakers.
-10. Spectator viewing of public tournaments.
-11. Final results publishing.
+6.  Manual and shuffled seeding with automatically regenerated admin-only previews.
+7.  Registration closure, tournament start, and admin-started rounds.
+8.  Direct score reporting by an assigned participant or admin.
+9.  Atomic bracket advancement, standings, and tiebreaker updates.
+10. Tournament cancellation and immutable completed final results.
+11. Spectator viewing of published public tournaments.
+12. Final results publishing only after every required match is complete.
 
 Later releases should add:
 
 1.  Private tournaments and participant invitations.
 2.  Check-in and custom registration fields.
-3.  Participant self-reporting.
-4.  Match proof attachments, disputes, and result review.
-5.  Two-stage tournaments.
-6.  Substitutions, forfeits, and after-start participant changes.
-7.  Controlled admin overrides for ongoing tournament issues.
-8.  Tournament templates and correction/reopen workflows.
-9.  Printable brackets and shareable bracket or result links/images.
+3.  Match proof attachments, disputes, and result review.
+4.  Two-stage tournaments.
+5.  Substitutions, forfeits, and after-start participant changes beyond controlled late placement.
+6.  Broader admin overrides for ongoing tournament issues.
+7.  Tournament templates.
+8.  Printable brackets and shareable bracket or result links/images.

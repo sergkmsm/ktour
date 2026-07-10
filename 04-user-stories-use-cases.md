@@ -7,7 +7,7 @@
 #### Epic 1: Public tournament creation
 
 User story 1.1  
-As an admin, I want to create a public tournament so that I can host a competition.
+As an admin, I want to create a tournament as a private draft so that I can configure it before it is public.
 
 User story 1.2  
 As an admin, I want to choose the tournament format so that the competition structure matches my event.
@@ -17,6 +17,10 @@ As an admin, I want to configure the public tournament page so that participants
 
 User story 1.4  
 As an admin, I want to add tournament rules and descriptions so that participants understand how the competition works.
+
+User story 1.5
+
+As an admin, I want to publish a valid draft into registration open or registration closed so that participants and spectators can access the tournament page.
 
 #### Epic 2: Participant joining and management
 
@@ -41,6 +45,14 @@ As an admin, I want to edit or remove participants before the tournament starts 
 User story 2.7  
 As an admin, I want to see withdrawn participants before start so that I can make final bracket decisions.
 
+User story 2.8
+
+As an admin, I want to place an entrant who joined after start only after I review its effect on unfinished pairings and standings.
+
+User story 2.9
+
+As a participant, I want to see when my after-start join is pending admin placement so that I know I am not yet active in the tournament.
+
 #### Epic 3: Seeding and bracket setup
 
 User story 3.1  
@@ -50,15 +62,15 @@ User story 3.2
 As an admin, I want to shuffle seeds so that I can randomize pairings.
 
 User story 3.3  
-As an admin, I want to preview the bracket before starting so that I can review pairings.
+As an admin, I want an automatically updated private preview before starting so that I can review current pairings.
 
 User story 3.4  
-As a participant, I want to know when the bracket is final so that I do not rely on an unfinished preview.
+As a participant, I want to know when the final bracket or schedule has started so that I do not rely on an unfinished preview.
 
 #### Epic 4: Match operations
 
 User story 4.1  
-As an admin, I want to see each match state so that I know what needs a result or advancement.
+As an admin, I want to start each round so that only its matches become active.
 
 User story 4.2  
 As an admin, I want to view match participants and bracket position so that I can manage progression accurately.
@@ -69,10 +81,10 @@ As a participant, I want to see my match opponent and status so that I understan
 User story 4.4  
 As a spectator, I want to see match participants, scores, and state so that I can follow tournament progress.
 
-#### Epic 5: Admin score reporting and results
+#### Epic 5: Score reporting and results
 
 User story 5.1  
-As an admin, I want to report scores so that the bracket advances.
+As an admin or assigned participant, I want to report a valid score for an active match so that the bracket advances or standings update.
 
 User story 5.2  
 As a participant, I want to see standings so that I understand my rank.
@@ -85,6 +97,10 @@ As a spectator, I want to view the bracket and standings so that I can follow th
 
 User story 5.5  
 As an admin, I want to publish final placements so that results are official.
+
+User story 5.6
+
+As an admin, I want to cancel a nonterminal tournament so that no further tournament actions can occur when the event cannot continue.
 
 #### Epic 6: Spectator viewing
 
@@ -121,18 +137,18 @@ As an admin, I want to collect custom registration fields so that I have event-s
 #### Epic 9: Later match operations
 
 User story 9.1  
-As a participant, I want to submit scores when allowed so that match results can be recorded quickly.
-
-User story 9.2  
 As an admin, I want to require match proof so that disputed results can be reviewed.
 
-User story 9.3  
+User story 9.2
+
 As an admin, I want to review disputed scores so that the correct winner advances.
 
-User story 9.4  
+User story 9.3
+
 As an admin, I want to mark forfeits so that no-shows do not block the tournament.
 
-User story 9.5  
+User story 9.4
+
 As an admin, I want to substitute participants so that unexpected attendance changes can be handled.
 
 #### Epic 10: Two-stage tournaments
@@ -149,7 +165,7 @@ As an admin, I want to define how many participants advance from each group so t
 User story 10.4  
 As a participant, I want to see my group standings and advancement status so that I know what I need to do.
 
-#### Epic 11: Communication and correction
+#### Epic 11: Communication and broader operations
 
 User story 11.1  
 As an admin, I want to post announcements so that participants receive important updates.
@@ -161,22 +177,10 @@ User story 11.3
 As a participant, I want tournament updates in one place so that I do not miss bracket, result, or rule changes.
 
 User story 11.4  
-As an admin, I want to edit incorrect match results so that mistakes can be fixed.
+As an admin, I want operational correction tools for in-progress issues beyond controlled late placement so that future releases can handle real-world problems.
 
 User story 11.5  
-As an admin, I want to reopen a completed tournament so that final results can be corrected.
-
-User story 11.6  
-As a participant, I want corrections to be visible so that I can trust the final standings.
-
-User story 11.7  
-As an admin, I want controlled override tools for drops, match state mistakes, and manual advancement so that real-world tournament problems can be fixed without unrestricted editing.
-
-User story 11.8  
-As a spectator, I want corrected public information to show that an update happened so that tournament progress remains trustworthy.
-
-User story 11.9  
-As an admin, I want important corrections to require confirmation so that I do not accidentally change brackets, standings, or final placements.
+As a participant, I want any future operational correction to be visible so that I can trust published tournament information.
 
 ### Key use cases
 
@@ -187,64 +191,68 @@ Goal: Create and publish a public tournament.
 
 Main flow:
 
-1.  Admin creates a tournament.
+1.  Admin creates a private draft.
 2.  Admin enters tournament name, description, game/activity, date, and rules.
 3.  Admin selects single elimination, round robin, or Swiss.
 4.  Admin configures the public tournament page.
-5.  Admin opens joining or adds participants manually or in bulk.
-6.  Admin reviews joined, withdrawn, and admin-added participants.
-7.  Admin sets or shuffles seeds.
-8.  Admin previews the bracket or scheduled pairings.
-9.  Admin starts the tournament.
+5.  Admin publishes the draft as registration open or registration closed.
+6.  Admin opens joining if needed, or adds participants manually or in bulk.
+7.  Admin reviews joined, withdrawn, and admin-added participants.
+8.  Admin sets or shuffles seeds.
+9.  System automatically regenerates the admin-only bracket or schedule preview after affected changes.
+10. Admin closes registration.
+11. Admin starts the tournament, which finalizes the bracket or schedule and starts round one.
 
-Successful outcome: Tournament is started and ready for match results.
+Successful outcome: Tournament is in progress with round one active and ready for match results.
 
 #### Use case B: Join or withdraw from a tournament
 
 **Actor:** Participant  
-**Goal:** Join or leave a public tournament before it starts.
+**Goal:** Join a public tournament, or leave before it starts.
 
 Main flow:
 
 1.  Participant opens tournament page.
 2.  Participant selects join while joining is open.
-3.  System records the participant as joined.
-4.  Participant sees joined status.
-5.  If the participant can no longer compete before start, participant selects withdraw.
-6.  System records the participant as withdrawn.
+3.  If registration is open, the system records the participant as joined.
+4.  If the tournament is in progress, the system records the participant as pending placement until an admin confirms controlled reflow.
+5.  Participant sees joined or pending-placement status.
+6.  If the participant can no longer compete before start, participant selects withdraw.
+7.  System records the participant as withdrawn.
 
-Successful outcome: Participant and admin can see whether the participant is joined or withdrawn.
+Successful outcome: Participant and admin can see whether the participant is joined, pending placement, or withdrawn.
 
 #### Use case C: Report match score
 
-Actor: Admin  
+Actor: Admin or assigned participant
+
 Goal: Record match result.
 
 Main flow:
 
-1.  Admin opens an active match.
-2.  Admin enters score.
-3.  Admin selects winner if required by the format.
-4.  System records the result.
-5.  Bracket or standings update.
+1.  Reporter opens an active match.
+2.  Reporter enters score.
+3.  Reporter selects winner if required by the format.
+4.  System validates and records the result, then completes the match.
+5.  Bracket advancement and standings update atomically.
 
 Successful outcome: Match is completed and the next match or ranking is updated.
 
-#### Later-scope use case C2: Correct an ongoing tournament issue
+#### Use case C2: Place an after-start entrant
 
 Actor: Admin  
-Goal: Fix a tournament state problem without restarting the event.
+Goal: Add an entrant to unfinished competition without changing completed history.
 
 Main flow:
 
-1.  Admin identifies a score, match state, participant status, or advancement problem.
-2.  Admin opens the affected match or tournament control area.
-3.  System explains the downstream effect on bracket progression, standings, or final placements.
-4.  Admin confirms the correction.
-5.  System applies the correction and updates affected public tournament information.
-6.  System shows correction context where needed so affected viewers can understand that information changed.
+1.  A participant joins while the tournament is in progress, or the admin adds an entrant.
+2.  System shows the entrant as pending placement.
+3.  Admin selects a placement in the unfinished competition.
+4.  System shows the effect on unfinished pairings and standings.
+5.  Admin confirms the placement.
+6.  System regenerates only affected unfinished competition and marks the entrant active.
 
-Successful outcome: The tournament reflects the real-world event state and can continue without hidden or uncontrolled changes.
+Successful outcome: The tournament includes the entrant without changing completed matches or results.
 
 #### Use case D: View a public tournament as a spectator
 
