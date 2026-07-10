@@ -34,18 +34,7 @@ Before start, affected setup changes automatically regenerate the current admin-
 ### Acceptance criteria precision
 
 1.  Define what counts as required basic tournament information for AC-1 and AC-2.
-2.  Define format-specific setup requirements for AC-3, including single elimination, round robin, and Swiss.
-3.  Define valid score fields for AC-27 and invalid score behavior for AC-28.
-4.  Define the MVP tiebreaker options and order for AC-34 and AC-35.
-5.  Define what viewers should see when match information changes in AC-43, including whether updates are real-time or refresh-based.
-6.  Define when a selected winner must agree with the entered score, and how draws, tied scores, incomplete scores, and scoreless results are handled for each format.
-
-### MVP format operation rules
-
-1.  Define the minimum and supported participant counts, bracket size, bye allocation, seed-to-slot mapping, and tie resolution for single elimination.
-2.  Define round robin scheduling for odd participant counts, match generation timing, points allocation, and completion rules.
-3.  Define Swiss round count, first-round pairing, subsequent pairing priority, rematch avoidance, bye selection, tie handling, and when the next round may be generated.
-4.  Define how manual and shuffled seeds affect each format, including whether seeds apply only to initial pairings or have any later-round effect.
+2.  Define what viewers should see when match information changes in AC-43, including whether updates are real-time or refresh-based.
 
 ### Tabletop Wargames domain requirements
 
@@ -53,9 +42,7 @@ Before start, affected setup changes automatically regenerate the current admin-
 2.  Decide whether army or list submission is required, optional, or later scope.
 3.  Decide whether table assignment is part of MVP match operations.
 4.  Decide whether missions, scenarios, deployment maps, or round packets need structured fields.
-5.  Decide whether battle points, victory points, margin of victory, sportsmanship scores, painting scores, or composition scores are supported.
-6.  Decide whether strength of schedule, opponent win percentage, victory point differential, or other wargaming tiebreakers are supported.
-7.  Decide whether round timers, scheduled round start/end times, and late-arrival handling are supported.
+5.  Decide whether round timers, scheduled round start/end times, and late-arrival handling are supported.
 
 ### Participant and registration behavior
 
@@ -82,7 +69,6 @@ Before start, affected setup changes automatically regenerate the current admin-
 ### Final results and placements
 
 1.  Define which final placements must be published for each MVP format, including whether single-elimination semifinalists share third place when placement matches are later scope.
-2.  Define how round robin and Swiss final ranks are calculated when participants remain tied after all configured tiebreakers.
 
 ### Notifications and communication
 

@@ -85,6 +85,26 @@ MVP should support the following tournament structures:
 
 Later scope may add free-for-all, leaderboard, two-stage, and racing formats after the MVP formats are fully specified.
 
+#### MVP format mechanics
+
+MVP captures only a match outcome: win, loss, or, for round robin and Swiss, draw. It does not capture battle points, victory points, margin of victory, sportsmanship, painting, composition, or other game-specific scoring metrics. A win earns 3 match points, a draw earns 1 match point, and a loss earns 0 match points.
+
+1.  **Single elimination** supports 2 through 128 active participants. The system creates the smallest power-of-two bracket that can contain all entrants. The seeded slot order is recursive: start with `[1, 2]`; to create a bracket of size `n` from one of size `n / 2`, replace each seed `s` with `[s, n + 1 - s]`. Empty slots are byes assigned to the highest seeds. A bye is not a match and advances its participant without a score. A single-elimination result must identify one winner; draws are invalid.
+2.  **Round robin** supports 2 through 32 active participants. The system generates the full circle-method schedule at tournament start. For an odd participant count, it adds a bye position so each participant has one bye; a bye counts as a win and earns 3 match points. The tournament is complete when every non-bye scheduled match is complete.
+3.  **Swiss** supports 4 through 128 active participants. Before start, the admin selects from 1 through `ceil(log2(active participant count))` rounds. If the entrant count is odd, the first-round bye goes to the lowest seed. Round one pairs the seeded top half against the seeded bottom half. After every later round is complete, the system creates the next round as not ready; the admin starts it when ready.
+4.  For each later Swiss round, the system first assigns a bye for an odd total participant count to the lowest-ranked participant without a prior bye, or to the lowest-ranked participant if everyone has already received one. It then pairs the remaining participants within equal match-point groups, ordered by the current standings. If a group has an odd number of participants, its lowest-ranked participant floats to the next lower group. The system avoids rematches whenever a valid pairing exists. If no no-rematch pairing is possible, it schedules the rematch whose previous meeting was earliest; seed order breaks any remaining pairing tie. A Swiss bye counts as a win and earns 3 match points, but has no opponent tiebreak value.
+5.  Seeds determine single-elimination slot placement, round-robin schedule order, Swiss first-round pairings, and deterministic Swiss pairing fallbacks only. Seeds do not change match points or published final ranks.
+
+#### Standings and tiebreakers
+
+Round-robin and Swiss standings rank participants first by match points. Before start, an admin must select one or more ordered tiebreakers; the default order is match wins, Buchholz, then head-to-head. The available MVP tiebreakers are:
+
+1.  **Match wins** — the participant with more wins ranks higher.
+2.  **Buchholz** — the sum of match points earned by opponents the participant actually played. Byes are excluded.
+3.  **Head-to-head** — applies only to a two-participant tie where the participants played each other; the match winner ranks higher. It is skipped for a draw, no meeting, or a tie involving more than two participants.
+
+Buchholz is the only MVP strength-of-schedule metric. Opponent win percentage, victory-point differential, and other game-specific tiebreakers are later scope. The configured order, each applicable value, and an explanation of the resulting rank are visible in standings. Scoring, the selected tiebreakers, and their order lock at tournament start. If final standings remain tied after all selected tiebreakers, the participants share the placement. Seed order may make a future Swiss pairing deterministic but never breaks a published standings tie.
+
 #### Registration rules
 
 An admin publishes a draft into registration open or registration closed. Registration must be closed to start the tournament. Once in progress, joining is open for pending-placement requests only; an admin must confirm controlled reflow before an entrant is active. Private registration, registration deadlines, participant limits, waitlists, custom participant fields, check-in, region restrictions, and admin approval rules are later-scope items that need separate clarification.
