@@ -6,10 +6,10 @@
 
 AC-1: [MVP] Create tournament draft
 
-Given I am an admin, when I create a tournament with required basic information, then the tournament is saved as a draft.
+Given I am an admin, when I create a tournament, then it is saved as a private draft even if required basic tournament information is incomplete. Required basic tournament information is a tournament name, description, game system or activity, start date, and rules summary.
 
 AC-2: [MVP] Required fields  
-Given I am creating a tournament, when required fields are missing, then I cannot publish or start the tournament until those fields are completed.
+Given I am creating or editing a draft, when any required basic tournament information is missing or no MVP format is selected, then I cannot publish or start the tournament until it is completed or selected. Format-specific setup and other start requirements remain governed by AC-3, AC-21, and AC-22.
 
 AC-3: [MVP] Format selection  
 Given I am creating a tournament, when I select single elimination, round robin, or Swiss, then the system shows the setup options and eligible participant range required for that format before start; Swiss also requires the admin to select its round count.
@@ -22,6 +22,8 @@ Given a valid draft, when the admin publishes it as registration open or registr
 
 AC-5: [MVP] Open joining  
 Given joining is open for a public tournament, when a participant submits the required MVP join information, then they are added with joined status during registration open or pending-placement status during in-progress play.
+
+MVP joining requires only a display name. Faction and faction-specific rules text are optional participant details managed by an admin.
 
 AC-6: [MVP] Joining closed  
 Given a tournament is in registration closed, when a participant visits its public page, then they cannot join and must see the joining status.
@@ -40,8 +42,8 @@ Given I am an admin, when I add a participant by display name, then the particip
 AC-10: [MVP] Bulk add  
 Given I am an admin, when I paste multiple participant names, then the system creates separate participant entries.
 
-AC-11: [MVP] Edit participant before start  
-Given the tournament has not started, when the admin edits a participant display name, then the updated name appears in the bracket preview and participant list.
+AC-11: [MVP] Edit participant details
+Given the tournament has not started, when the admin edits a participant display name or other participant details, then the update appears in the bracket preview and participant list. Given a tournament is not cancelled, when an admin edits a participant's faction or faction-specific rules text, then the update is saved without changing seeds, pairings, scores, standings, placements, or completed match history; this is allowed before, during, and after competition.
 
 AC-12: [MVP] Controlled after-start placement
 
@@ -86,14 +88,14 @@ Given registration is open, required setup is incomplete, seeding is invalid, th
 ### G. Match operations
 
 AC-23: [MVP] Match page  
-Given a match exists, when an admin, participant, or spectator views it, then they can see participants, score status, bracket or standings context, and its not-ready, active, or completed state.
+Given a match exists, when an admin, participant, or spectator views it, then they can see participants, score status, bracket or standings context, and its not-ready, active, or completed state. Table assignment, missions, scenarios, deployment maps, and round packets are not MVP match fields.
 
 AC-24: [MVP] Match state visibility  
 Given match states change during the MVP flow, when admins, participants, or spectators view the tournament, then they can see whether each match is not ready, active, or completed.
 
 AC-25: [MVP] Round activation
 
-Given a future round's prerequisites are complete, when an admin starts that round, then its not-ready matches become active and only assigned participants or admins can report their results; for Swiss, the next round is created only after every match in the preceding round is complete.
+Given a future round's prerequisites are complete, when an admin starts that round, then its not-ready matches become active and only assigned participants or admins can report their results; for Swiss, the next round is created only after every match in the preceding round is complete. MVP rounds have no scheduled start or end time, timer, or late-arrival handling.
 
 AC-26: [MVP] Match context and upcoming visibility
 
@@ -110,7 +112,7 @@ Given a result is missing, has no winner for single elimination, or records a dr
 
 AC-29: [MVP] Participant self-reporting
 
-Given an assigned participant submits a valid result for an active match, when it is saved, then it is final immediately without a confirmation or review state.
+Given an assigned participant submits a valid result for an active match, when it is saved, then it is final immediately without a confirmation or review state, subject only to the admin completed-match correction flow in AC-46.
 
 AC-30: [Later Scope] Match proof  
 Given proof is supported and required, when a score is submitted without proof, then the score cannot be finalized.
@@ -124,7 +126,7 @@ Given forfeits are supported, when the admin marks a forfeit, then the opponent 
 ### I. Standings and tiebreakers
 
 AC-33: [MVP] Standings update  
-Given a valid match result is saved, when standings are displayed, then wins, losses, ties, match points, and rank reflect that result in the same completed-match operation; a win is worth 3 match points, a draw is worth 1, and a loss is worth 0.
+Given a valid match result is saved or an admin corrects a completed result, when standings are displayed, then wins, losses, ties, match points, and rank reflect that result in the same operation; a win is worth 3 match points, a draw is worth 1, and a loss is worth 0.
 
 AC-34: [MVP] Tiebreakers  
 Given participants are tied and the admin has selected one or more ordered tiebreakers before start, when standings are calculated, then the system applies match wins, Buchholz, or head-to-head in the selected order. If selected tiebreakers do not separate final standings, the participants share the placement.
@@ -158,7 +160,7 @@ AC-42: [Later Scope] Participant messages
 Given messaging is supported and enabled, when admins send a tournament-related message, then selected participants receive it or can view it.
 
 AC-43: [MVP] Public match updates  
-Given an assigned participant or admin saves a result for an active match, when admins, participants, or spectators view the public tournament page, then the current saved match information is shown.
+Given an assigned participant or admin saves an active-match result or an admin corrects a completed result, when admins, participants, or spectators load or manually refresh the public tournament page, then it shows the saved match participants, completed state, and result; any resulting bracket advancement or next-match participant or pending source; and any affected standings record, match points, rank, and applicable tiebreaker values. Already-open pages are not required to update automatically; MVP public match updates are refresh-based and do not require real-time push or polling.
 
 ### L. Completion and correction
 
@@ -168,13 +170,13 @@ Given all required matches are complete, when the admin ends the tournament, the
 AC-45: [MVP] Prevent early completion  
 Given required matches are incomplete, when the admin tries to end the tournament, then the system warns the admin and requires completion before final results are published.
 
-AC-46: [MVP] Prevent completed match edits
+AC-46: [MVP] Admin correct completed match result
 
-Given a match is completed, when an admin or participant attempts to change its result or state, then the system blocks the change.
+Given a match is completed and the tournament is not cancelled, when an admin enters a valid replacement result, then the system shows its effect on standings, final placements, and unfinished competition and requires confirmation before saving it. If the correction would change the entrant, opponent, or pairing of a completed downstream match, then the system blocks the correction and explains why. Otherwise, the saved match remains completed, affected standings and final placements recalculate, and only affected not-ready or active competition reflows. Participants cannot edit completed match results.
 
 AC-47: [MVP] Completed tournament immutability
 
-Given a tournament is completed, when any user attempts to change its participants, setup, seeds, matches, scores, standings, or placements, then the system blocks the change.
+Given a tournament is completed, when any user attempts to change its participants, setup, seeds, matches, scores, standings, or placements, then the system blocks the change, except that an admin may edit a participant's faction or faction-specific rules text without changing competitive data, or correct a completed match result under AC-46.
 
 AC-48: [MVP] Cancel tournament
 
@@ -199,15 +201,17 @@ The first release should include:
 1.  Private draft creation, explicit publication, and public tournament pages.
 2.  Single elimination, round robin, and Swiss.
 3.  Participant joining, pre-start withdrawal, and pending placement for in-progress joins.
-4.  Manual and bulk participant entry by admins, including controlled late placement that preserves completed history.
-5.  Admin participant editing and removal before start.
-6.  Manual and shuffled seeding with automatically regenerated admin-only previews.
-7.  Registration closure, tournament start, and admin-started rounds.
-8.  Direct score reporting by an assigned participant or admin.
-9.  Atomic bracket advancement, standings, and tiebreaker updates.
-10. Tournament cancellation and immutable completed final results.
-11. Spectator viewing of published public tournaments.
-12. Final results publishing only after every required match is complete.
+4.  Manual and bulk participant entry by admins, including optional faction and faction-specific rules text.
+5.  Admin participant editing and removal before start, with admin faction-detail editing allowed in every non-cancelled state.
+6.  Controlled late placement that preserves completed history.
+7.  Manual and shuffled seeding with automatically regenerated admin-only previews.
+8.  Registration closure, tournament start, and admin-started rounds.
+9.  Direct score reporting by an assigned participant or admin.
+10. Confirmed admin correction of completed match results that preserves completed downstream competition.
+11. Atomic bracket advancement, standings, and tiebreaker updates.
+12. Tournament cancellation and immutable completed final results, except for noncompetitive faction metadata and constrained completed-match corrections.
+13. Spectator viewing of published public tournaments.
+14. Final results publishing only after every required match is complete.
 
 Later releases should add:
 
@@ -216,6 +220,7 @@ Later releases should add:
 3.  Match proof attachments, disputes, and result review.
 4.  Two-stage tournaments.
 5.  Substitutions, forfeits, and after-start participant changes beyond controlled late placement.
-6.  Broader admin overrides for ongoing tournament issues.
+6.  Broader admin overrides for ongoing tournament issues beyond completed-match corrections.
 7.  Tournament templates.
 8.  Printable brackets and shareable bracket or result links/images.
+9.  Army/list submission, table assignment, structured round content, round timing, and late-arrival handling.

@@ -51,23 +51,27 @@ The system includes tournament-related features only.
 
 6.  Bulk participant entry by admin.
 
-7.  Participant editing and removal by admin before tournament start.
+7.  Optional participant faction and faction-specific rules text, managed by an admin.
 
-8.  Controlled placement of participants added after tournament start, affecting only unfinished competition.
+8.  Participant editing and removal by admin before tournament start.
 
-9.  Bracket or schedule generation and admin-only preview.
+9.  Controlled placement of participants added after tournament start, affecting only unfinished competition.
 
-10. Manual seeding and shuffled seeding.
+10. Bracket or schedule generation and admin-only preview.
 
-11. Admin-started rounds and clear match states.
+11. Manual seeding and shuffled seeding.
 
-12. Score reporting by assigned participants or admins.
+12. Admin-started rounds and clear match states.
 
-13. Standings, rankings, and tiebreakers.
+13. Score reporting by assigned participants or admins.
 
-14. Tournament cancellation.
+14. Admin correction of completed match results when it does not alter a completed downstream match or pairing.
 
-15. Tournament completion and final results publishing.
+15. Standings, rankings, and tiebreakers.
+
+16. Tournament cancellation.
+
+17. Tournament completion and final results publishing.
 
 #### Later scope
 
@@ -79,7 +83,7 @@ The system includes tournament-related features only.
 
 4.  Check-in before tournament start.
 
-5.  Match proof, score disputes, and result review workflows.
+5.  Match proof, score disputes, and result review workflows beyond direct admin correction of completed match results.
 
 6.  Substitution, forfeit handling, and after-start participant removals or other changes beyond controlled late placement.
 
@@ -92,6 +96,14 @@ The system includes tournament-related features only.
 10. Ranking-based seeding.
 
 11. Tournament templates for repeated events.
+
+12. Army or list submission.
+
+13. Table assignment and table management.
+
+14. Structured missions, scenarios, deployment maps, or round packets.
+
+15. Round scheduling and timers, and late-arrival handling.
 
 #### Explicitly unresolved
 
@@ -126,4 +138,4 @@ The product should be considered successful if:
 3.  **Result transparency:** Brackets, scores, standings, and tiebreakers should be visible and understandable.
 4.  **Flexible formats:** Different competitions require different tournament formats.
 5.  No hidden assumptions: Rules, advancement logic, scoring, and tiebreakers should be shown clearly to admins before the tournament starts.
-6.  Controlled reflow: Admins may place an entrant during an ongoing tournament only after reviewing and confirming the impact on unfinished competition. Completed matches, results, and completed tournaments are immutable.
+6.  Controlled reflow: Admins may place an entrant during an ongoing tournament only after reviewing and confirming the impact on unfinished competition. Completed matches, results, and competitive tournament data are immutable except for confirmed admin correction of a completed match that does not change a completed downstream match or pairing. Participant faction and faction-specific rules text are also editable in completed tournaments. Cancelled tournaments are fully immutable.

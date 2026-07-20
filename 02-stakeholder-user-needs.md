@@ -14,7 +14,7 @@
 
 | Role | MVP permissions |
 |------|-----------------|
-| Admin | Create and manage public tournaments, publish them, add/manage participants, seed brackets, start tournaments and rounds, report scores, place late entrants through controlled reflow, cancel tournaments, and publish final results. |
+| Admin | Create and manage public tournaments, publish them, add/manage participants and their faction details, seed brackets, start tournaments and rounds, report or correct scores, place late entrants through controlled reflow, cancel tournaments, and publish final results. |
 | Participant | Join a public tournament, request placement when joining after start, withdraw before start, submit a result for an assigned active match, and view public tournament information. |
 | Spectator | View public tournament information only. Spectators are unregistered users and have no tournament actions. |
 
@@ -26,10 +26,12 @@
 | Admin | I need to open or close registration so I can control when participants join before start. |
 | Admin | I need to manually or bulk-add participants so I can support offline signups and existing lists. |
 | Admin | I need to edit, remove, and review withdrawals before start so the final bracket stays accurate. |
+| Admin | I need to record and correct a participant's optional faction and faction-specific rules text without changing competitive results. |
 | Admin | I need to place an entrant who joined after start while seeing and confirming the effect on unfinished pairings and standings. |
 | Admin | I need to seed participants manually or randomly and privately preview current pairings before start. |
 | Admin | I need to start each round so only its matches become active. |
 | Admin | I need to report scores quickly so the bracket advances without delay. |
+| Admin | I need to correct a completed match result without changing completed downstream matches so that I can fix errors while preserving completed competition history. |
 | Admin | I need standings and tiebreakers so winners and rankings are clear. |
 | Participant | I need to join a public tournament so that I can compete. |
 | Participant | I need to know when an after-start join is pending admin placement. |
@@ -43,8 +45,9 @@
 |-----------|------|
 | Admin | I need private tournament access controls when private tournaments are added after MVP. |
 | Admin | I need participant invitations when invite-only tournaments are added after MVP. |
-| Admin | I need check-in, custom registration fields, substitutions, forfeits, disputes, proof, and broader correction workflows after the MVP scope is stable. |
+| Admin | I need check-in, custom registration fields, substitutions, forfeits, disputes, proof, and broader correction workflows beyond completed-match corrections after the MVP scope is stable. |
 | Admin | I need controlled ways to handle drops, substitutions, and match-state issues that cannot be resolved by the MVP controlled-placement flow. |
+| Admin | I need table assignments, structured round content, and timing or late-arrival controls after MVP scope is stable. |
 | Participant | I may need check-in, proof submission, and dispute participation in a later release. |
 
 ### Key pain points to solve

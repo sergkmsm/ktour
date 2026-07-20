@@ -53,6 +53,10 @@ User story 2.9
 
 As a participant, I want to see when my after-start join is pending admin placement so that I know I am not yet active in the tournament.
 
+User story 2.10
+
+As an admin, I want to record and correct a participant's optional faction and faction-specific rules text in every non-cancelled tournament state so that tournament information remains accurate without changing competition results.
+
 #### Epic 3: Seeding and bracket setup
 
 User story 3.1  
@@ -101,6 +105,10 @@ As an admin, I want to publish final placements so that results are official.
 User story 5.6
 
 As an admin, I want to cancel a nonterminal tournament so that no further tournament actions can occur when the event cannot continue.
+
+User story 5.7
+
+As an admin, I want to correct a completed match result after reviewing its impact so that I can fix mistakes without changing completed downstream matches.
 
 #### Epic 6: Spectator viewing
 
@@ -177,7 +185,7 @@ User story 11.3
 As a participant, I want tournament updates in one place so that I do not miss bracket, result, or rule changes.
 
 User story 11.4  
-As an admin, I want operational correction tools for in-progress issues beyond controlled late placement so that future releases can handle real-world problems.
+As an admin, I want operational correction tools beyond controlled late placement and completed-match corrections so that future releases can handle real-world problems.
 
 User story 11.5  
 As a participant, I want any future operational correction to be visible so that I can trust published tournament information.
@@ -186,7 +194,7 @@ As a participant, I want any future operational correction to be visible so that
 
 #### Use case A: Create a public MVP tournament
 
-Actor: Admin  
+Actor: Admin
 Goal: Create and publish a public tournament.
 
 Main flow:
@@ -196,7 +204,7 @@ Main flow:
 3.  Admin selects single elimination, round robin, or Swiss.
 4.  Admin configures the public tournament page.
 5.  Admin publishes the draft as registration open or registration closed.
-6.  Admin opens joining if needed, or adds participants manually or in bulk.
+6.  Admin opens joining if needed, or adds participants manually or in bulk; the admin may add optional faction and faction-specific rules text for a participant.
 7.  Admin reviews joined, withdrawn, and admin-added participants.
 8.  Admin sets or shuffles seeds.
 9.  System automatically regenerates the admin-only bracket or schedule preview after affected changes.
@@ -237,6 +245,22 @@ Main flow:
 5.  Bracket advancement and standings update atomically.
 
 Successful outcome: Match is completed and the next match or ranking is updated.
+
+#### Use case C1: Correct a completed match result
+
+Actor: Admin
+Goal: Correct a completed result without rewriting completed downstream competition.
+
+Main flow:
+
+1.  Admin opens a completed match in a non-cancelled tournament.
+2.  Admin enters a valid replacement result.
+3.  System shows the effect on standings, final placements, and unfinished competition.
+4.  If the correction would change a completed downstream match or pairing, the system blocks it and explains why.
+5.  Otherwise, the admin confirms the correction.
+6.  System saves the result, recalculates standings and final placements, and reflows only affected not-ready or active competition.
+
+Successful outcome: The completed result is corrected without changing any completed downstream match or pairing.
 
 #### Use case C2: Place an after-start entrant
 
